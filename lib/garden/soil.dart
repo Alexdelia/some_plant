@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart' show Option;
 import 'package:some_plant/garden/plant.dart';
 import 'package:some_plant/page/plant.dart';
 
 class Soil extends StatefulWidget {
   final int id;
-  final int level;
+  final Option<int> level;
 
   const Soil({super.key, required this.id, required this.level});
 
@@ -13,7 +14,7 @@ class Soil extends StatefulWidget {
 }
 
 class _SoilState extends State<Soil> {
-  int level = 0;
+  Option<int> level = const Option<int>.none();
 
   @override
   void initState() {
@@ -23,7 +24,8 @@ class _SoilState extends State<Soil> {
 
   void onPress() {
     setState(() {
-      level++;
+      level = level.fold(
+          () => const Option<int>.none(), (l) => Option<int>.of(l + 1));
     });
     _goToPlantPage(context, widget.id);
   }
@@ -33,10 +35,13 @@ class _SoilState extends State<Soil> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor: Color.lerp(
-          Colors.brown.shade200,
-          Colors.lightGreen,
-          level / 10,
+        backgroundColor: level.fold(
+          () => Colors.brown.shade300,
+          (l) => Color.lerp(
+            Colors.brown.shade200,
+            Colors.lightGreen,
+            l / 10,
+          ),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart' show Option;
 import 'package:some_plant/garden/soil.dart';
 
-typedef GardenT = List<List<int>>;
+typedef SoilT = Option<int>;
+typedef GardenT = List<List<SoilT>>;
 
 class Garden extends StatefulWidget {
   const Garden({super.key});
@@ -11,12 +13,22 @@ class Garden extends StatefulWidget {
 }
 
 class _GardenState extends State<Garden> {
-  final GardenT _garden = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-  ];
+  final int gardenSize = 4;
+
+  GardenT _createGarden() {
+    return List.generate(
+        gardenSize, (_) => List.filled(gardenSize, const Option<int>.none()));
+  }
+
+  GardenT _garden = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _garden = _createGarden();
+  }
+
+  // ...
 
   static const _padding = 8.0;
 

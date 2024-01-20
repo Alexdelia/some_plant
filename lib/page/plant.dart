@@ -12,10 +12,6 @@ class PlantPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('PlantPage$id'),
       ),
-      // body: Hero(
-      //   tag: 'plant$id',
-      //   child: Image.asset('asset/plant.png'),
-      // ),
       body: Column(
         children: [
           Expanded(
@@ -23,7 +19,7 @@ class PlantPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    color: Colors.red,
+                    color: Colors.brown.shade200,
                     child: const Column(
                       children: [
                         Text('Plant Stats'),
@@ -31,19 +27,16 @@ class PlantPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  color: Colors.blue,
-                  child: Hero(
-                    tag: 'plant$id',
-                    child: Image.asset('asset/plant.png'),
-                  ),
+                Hero(
+                  tag: 'plant$id',
+                  child: Image.asset('asset/plant.png'),
                 ),
               ],
             ),
           ),
           Expanded(
             child: Container(
-              color: Colors.green,
+              color: Colors.brown.shade400,
               child: const Column(
                 children: [
                   Text(
@@ -57,7 +50,3 @@ class PlantPage extends StatelessWidget {
     );
   }
 }
-
-// screen divided in 2 parts, top and bottom
-// top part is divided in two, on the left the stats of the plant, on the right the plant Hero
-// bottom part is a lorem ipsum text
