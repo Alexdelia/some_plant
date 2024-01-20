@@ -24,7 +24,7 @@ class PlantPage extends StatelessWidget {
                 Expanded(
                   child: Container(
                     color: Colors.red,
-                    child: Column(
+                    child: const Column(
                       children: [
                         Text('Plant Stats'),
                       ],
@@ -44,7 +44,7 @@ class PlantPage extends StatelessWidget {
           Expanded(
             child: Container(
               color: Colors.green,
-              child: Column(
+              child: const Column(
                 children: [
                   Text(
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, sed aliquam nisl nisl eu nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, sed aliquam nisl nisl eu nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, sed aliquam nisl nisl eu nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, sed aliquam nisl nisl eu nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, sed aliquam nisl nisl eu nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, sed aliquam nisl nisl eu nisl.'),
