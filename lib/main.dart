@@ -32,7 +32,7 @@ class SomePlant extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: const PlantPage());
+        home: const PlayPage());
   }
 }
 

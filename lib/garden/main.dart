@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:some_plant/garden/soil.dart';
 
-typedef Soil = int;
-typedef GardenT = List<List<Soil>>;
+typedef GardenT = List<List<int>>;
 
 class Garden extends StatefulWidget {
-  const Garden({Key? key}) : super(key: key);
+  const Garden({super.key});
 
   @override
   State<Garden> createState() => _GardenState();
@@ -54,7 +54,7 @@ class _GardenState extends State<Garden> {
     final row = index ~/ _garden.length;
     final col = index % _garden.length;
 
-    final soil = _garden[row][col];
+    final level = _garden[row][col];
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -72,21 +72,7 @@ class _GardenState extends State<Garden> {
             ),
           ],
         ),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: Color.lerp(
-              Colors.brown.shade200,
-              Colors.lightGreen,
-              soil / 10,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
-          onPressed: () => _incrementCell(row, col),
-          child: Text(soil.toString()),
-        ),
+        child: Soil(level: level, id: index),
       ),
     );
   }
