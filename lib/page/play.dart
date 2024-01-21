@@ -15,7 +15,7 @@ class PlayPage extends StatelessWidget {
       body: const _PositionManager(
         children: [
           SizedBox(child: Garden()),
-          Expanded(child: Rest()),
+          Flexible(child: Rest()),
         ],
       ),
     );

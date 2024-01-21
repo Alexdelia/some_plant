@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' show Option;
+import 'package:some_plant/garden/growth_point.dart';
 import 'package:some_plant/garden/plant/class.dart';
 import 'package:some_plant/garden/soil.dart';
 
@@ -15,6 +16,8 @@ class Garden extends StatefulWidget {
 
 class _GardenState extends State<Garden> {
   final int gardenSize = 4;
+
+  int amount = 0;
 
   GardenT _createGarden() {
     return List.generate(
@@ -42,26 +45,39 @@ class _GardenState extends State<Garden> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-        aspectRatio: 1.0,
-        child: Container(
-          // wood like background texture
-          decoration: const BoxDecoration(
-            color: Colors.brown,
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.brown,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          GrowthPointCounter(amount: amount),
+          Expanded(
+            child: AspectRatio(
+                aspectRatio: 1.0,
+                child: Container(
+                  // wood like background texture
+                  decoration: const BoxDecoration(
+                    color: Colors.brown,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(_GardenState._padding),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: _garden.length,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                      ),
+                      itemBuilder: _buildGridItem,
+                      itemCount: _garden.length * _garden[0].length,
+                    ),
+                  ),
+                )),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(_GardenState._padding),
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: _garden.length,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-              ),
-              itemBuilder: _buildGridItem,
-              itemCount: _garden.length * _garden[0].length,
-            ),
-          ),
-        ));
+        ],
+      ),
+    );
   }
 
   Widget _buildGridItem(BuildContext context, int index) {
