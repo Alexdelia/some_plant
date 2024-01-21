@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:some_plant/garden/main.dart';
+import 'package:some_plant/garden/mod.dart';
 import 'package:some_plant/rest.dart';
 
 class PlayPage extends StatelessWidget {

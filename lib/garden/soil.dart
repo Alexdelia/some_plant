@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' show Option;
-import 'package:some_plant/garden/plant.dart';
+import 'package:some_plant/garden/plant/widget.dart';
 import 'package:some_plant/page/plant.dart';
 
 class Soil extends StatefulWidget {
@@ -48,7 +48,7 @@ class _SoilState extends State<Soil> {
         ),
       ),
       onPressed: onPress,
-      child: Plant(id: widget.id),
+      child: PlantWidget(id: widget.id),
     );
   }
 }

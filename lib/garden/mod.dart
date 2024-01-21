@@ -32,12 +32,6 @@ class _GardenState extends State<Garden> {
 
   static const _padding = 8.0;
 
-  void _incrementCell(int row, int col) {
-    setState(() {
-      _garden[row][col]++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return AspectRatio(

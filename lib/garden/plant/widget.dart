@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Plant extends StatelessWidget {
+class PlantWidget extends StatelessWidget {
   final int id;
 
-  const Plant({super.key, required this.id});
+  const PlantWidget({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
