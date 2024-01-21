@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' show Option;
+import 'package:some_plant/garden/plant/class.dart';
 import 'package:some_plant/garden/soil.dart';
 
-typedef SoilT = Option<int>;
+typedef SoilT = Option<Plant>;
 typedef GardenT = List<List<SoilT>>;
 
 class Garden extends StatefulWidget {
@@ -17,7 +18,7 @@ class _GardenState extends State<Garden> {
 
   GardenT _createGarden() {
     return List.generate(
-        gardenSize, (_) => List.filled(gardenSize, const Option<int>.none()));
+        gardenSize, (_) => List.filled(gardenSize, const Option<Plant>.none()));
   }
 
   GardenT _garden = [];
@@ -28,7 +29,14 @@ class _GardenState extends State<Garden> {
     _garden = _createGarden();
   }
 
-  // ...
+  void spawnPlant(int index, Plant plant) {
+    final row = index ~/ _garden.length;
+    final col = index % _garden.length;
+
+    setState(() {
+      _garden[row][col] = Option<Plant>.of(plant);
+    });
+  }
 
   static const _padding = 8.0;
 
@@ -60,7 +68,7 @@ class _GardenState extends State<Garden> {
     final row = index ~/ _garden.length;
     final col = index % _garden.length;
 
-    final level = _garden[row][col];
+    final plant = _garden[row][col];
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -78,7 +86,7 @@ class _GardenState extends State<Garden> {
             ),
           ],
         ),
-        child: Soil(level: level, id: index),
+        child: Soil(index: index, plant: plant, spawnPlant: spawnPlant),
       ),
     );
   }

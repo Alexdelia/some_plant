@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' show Option;
+import 'package:some_plant/garden/plant/class.dart';
 import 'package:some_plant/garden/plant/widget.dart';
 import 'package:some_plant/page/plant.dart';
 
 class Soil extends StatefulWidget {
-  final int id;
-  final Option<int> level;
+  final int index;
+  final Option<Plant> plant;
+  final void Function(int index, Plant plant) spawnPlant;
 
-  const Soil({super.key, required this.id, required this.level});
+  const Soil({
+    super.key,
+    required this.index,
+    required this.plant,
+    required this.spawnPlant,
+  });
 
   @override
   State<Soil> createState() => _SoilState();
 }
 
 class _SoilState extends State<Soil> {
-  Option<int> level = const Option<int>.none();
-
-  @override
-  void initState() {
-    super.initState();
-    level = widget.level;
-  }
-
   void onPress() {
-    setState(() {
-      level = level.fold(
-          () => const Option<int>.none(), (l) => Option<int>.of(l + 1));
-    });
-    _goToPlantPage(context, widget.id);
+    widget.plant.fold(
+      () => _openSoilLens(context, widget.index, widget.spawnPlant),
+      (plant) => _goToPlantPage(context, plant.id),
+    );
   }
 
   @override
@@ -35,12 +33,12 @@ class _SoilState extends State<Soil> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor: level.fold(
+        backgroundColor: widget.plant.fold(
           () => Colors.brown.shade300,
-          (l) => Color.lerp(
+          (p) => Color.lerp(
             Colors.brown.shade200,
             Colors.lightGreen,
-            l / 10,
+            p.level / 10,
           ),
         ),
         shape: RoundedRectangleBorder(
@@ -48,7 +46,7 @@ class _SoilState extends State<Soil> {
         ),
       ),
       onPressed: onPress,
-      child: PlantWidget(id: widget.id),
+      child: widget.plant.fold(() => null, (p) => PlantWidget(plant: p)),
     );
   }
 }
@@ -57,4 +55,9 @@ void _goToPlantPage(BuildContext context, int id) {
   Navigator.of(context).push(
     MaterialPageRoute(builder: (context) => PlantPage(id: id)),
   );
+}
+
+void _openSoilLens(BuildContext context, int index,
+    void Function(int index, Plant plant) spawnPlant) {
+  spawnPlant(index, Plant(id: index, name: 'plant $index'));
 }
